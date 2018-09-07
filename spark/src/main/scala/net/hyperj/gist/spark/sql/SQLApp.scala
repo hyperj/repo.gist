@@ -2,21 +2,23 @@ package net.hyperj.gist.spark.sql
 
 import org.apache.spark.sql.SparkSession
 
-case class Struct2(key: String, value: String)
+case class Pair(key: String, value: String)
 
 object SQLApp {
+
   def main(args: Array[String]) {
     val spark = SparkSession.builder()
+      .appName(getClass.getSimpleName)
       .master("local[*]")
       .getOrCreate()
     import spark.sqlContext.implicits._
-    val pairs = Seq(Seq(Struct2("key11", "value11"), Struct2("key12", "value12")),
-      Seq(Struct2("key21", "value21"), Struct2("key22", "value22")))
+    val pairs = Seq(Seq(Pair("key11", "value11"), Pair("key12", "value12")),
+      Seq(Pair("key21", "value21"), Pair("key22", "value22")))
       .toDF("pairs")
     // flatMap
     pairs
       .select($"pairs")
-      .as[Seq[Struct2]]
+      .as[Seq[Pair]]
       .flatMap(_.toSeq)
       .toDF()
       .show
@@ -29,4 +31,5 @@ object SQLApp {
       .select("key", "value")
       .show
   }
+
 }

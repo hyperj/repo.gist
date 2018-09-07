@@ -11,6 +11,10 @@
 
     <artifactId>spark</artifactId>
 
+    <properties>
+        <graphframes.version>0.6.0-spark2.3-s_2.11</graphframes.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -20,6 +24,29 @@
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-sql_${scala.version}</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-graphx_${scala.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>graphframes</groupId>
+            <artifactId>graphframes</artifactId>
+            <version>${graphframes.version}</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spark-packages</id>
+            <name>Spark Packages</name>
+            <url>https://dl.bintray.com/spark-packages/maven/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>

@@ -70,6 +70,11 @@
                 <version>${spark.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-graphx_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.calcite</groupId>
                 <artifactId>calcite-core</artifactId>
                 <version>${calcite.version}</version>
