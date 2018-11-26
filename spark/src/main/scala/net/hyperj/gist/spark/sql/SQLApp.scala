@@ -2,8 +2,6 @@ package net.hyperj.gist.spark.sql
 
 import org.apache.spark.sql.SparkSession
 
-case class Pair(key: String, value: String)
-
 object SQLApp {
 
   def main(args: Array[String]) {
@@ -33,3 +31,5 @@ object SQLApp {
   }
 
 }
+
+case class Pair(key: String, value: String)
