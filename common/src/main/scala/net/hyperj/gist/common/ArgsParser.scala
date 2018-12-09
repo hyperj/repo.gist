@@ -1,15 +1,21 @@
 package net.hyperj.gist.common
 
-object ArgsParser {
+import org.scalatest.FunSuite
 
-  def parser(args: Array[String], split: String = "="): Map[String, String] = {
-    var map = Map.empty[String, String]
-    for (arg <- args) {
-      val key_val = arg.split(split)
-      if (key_val.length >= 2)
-        map += (key_val(0) -> key_val(1))
-    }
-    map
+class ArgsParser extends FunSuite {
+
+  def parser(args: Seq[String], split: String = "="): Map[String, String] = {
+    if (args.isEmpty) return Map.empty
+    args
+      .map(_.split(split))
+      .filter(_.length == 2)
+      .map(i => (i(0), i(1)))
+      .toMap[String, String]
+  }
+
+  test("args parser") {
+    println(parser(Seq("a=1", "b", "c=d=3")).toString())
+    println(parser(Seq("a:1", "b", "c:d:3"), ":").toString())
   }
 
 }
