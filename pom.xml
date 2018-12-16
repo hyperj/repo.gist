@@ -13,6 +13,7 @@
         <module>spark</module>
         <module>kettle</module>
         <module>datasketches</module>
+        <module>java</module>
     </modules>
 
     <properties>
