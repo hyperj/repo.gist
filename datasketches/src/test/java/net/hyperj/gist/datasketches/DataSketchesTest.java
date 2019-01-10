@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DataSketchesApp {
+public class DataSketchesTest {
 
     int count = 1 << 20;
 
@@ -42,11 +42,11 @@ public class DataSketchesApp {
     @Test
     public void quantiles() {
         Random rand = new Random();
-        UpdateDoublesSketch sketch = DoublesSketch.builder().setK(64).build();
+        UpdateDoublesSketch sketch = DoublesSketch.builder().setK(128).build();
         for (int i = 0; i < count; i++) {
             sketch.update(rand.nextGaussian());
         }
-        DoublesUnion union = DoublesUnion.builder().setMaxK(64).build();
+        DoublesUnion union = DoublesUnion.builder().setMaxK(128).build();
         union.update(sketch);
         DoublesSketch result = union.getResult();
         double maxValue = result.getMaxValue();
