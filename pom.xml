@@ -17,6 +17,7 @@
         <module>kettle</module>
         <module>datasketches</module>
         <module>netty</module>
+        <module>python</module>
     </modules>
 
     <properties>
