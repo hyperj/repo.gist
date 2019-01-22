@@ -71,6 +71,16 @@ class SqlApp extends FunSuite {
 
   }
 
+  test("explain") {
+    import spark.implicits._
+    val ds = Seq(1, 2, 3).toDS()
+    val res = ds.filter(_ > 0).map(_ + 1)
+    println("-" * 64)
+    println(res.explain(true))
+    println("-" * 64)
+    println(res.queryExecution.sparkPlan.prettyJson)
+  }
+
 }
 
 case class Pair(key: String, value: String)
