@@ -1,5 +1,7 @@
 package net.hyperj.gist.java.nio;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -10,7 +12,6 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-import net.hyperj.gist.common.dict.StringDict;
 import net.hyperj.gist.common.kit.JavaScriptKit;
 
 public class ServerHandle implements Runnable {
@@ -87,7 +88,7 @@ public class ServerHandle implements Runnable {
                     buffer.flip();
                     byte[] bytes = new byte[buffer.remaining()];
                     buffer.get(bytes);
-                    String expression = new String(bytes, StringDict.CHARSET_UTF8);
+                    String expression = new String(bytes, UTF_8);
                     System.out.println("Request Msg: " + expression);
                     String result = null;
                     try {

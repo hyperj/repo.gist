@@ -11,6 +11,8 @@
 
     <artifactId>scala</artifactId>
 
+    <properties/>
+
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>

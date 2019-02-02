@@ -11,6 +11,8 @@
 
     <artifactId>datasketches</artifactId>
 
+    <properties/>
+
     <dependencies>
         <dependency>
             <groupId>com.yahoo.datasketches</groupId>

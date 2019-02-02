@@ -5,10 +5,18 @@ import static net.hyperj.gist.common.dict.StringDict.*;
 
 public class StringKit {
 
+    public static void printf(String str) {
+        println(new StringBuilder(repeat(HYPHEN, 1 << 6)).append(LINE_BREAK)
+                .append(EMPTY).append(LINE_BREAK)
+                .append(str).append(LINE_BREAK)
+                .append(EMPTY).toString());
+    }
+
     public static void println(String str) {
-        System.out.println(repeat(HYPHEN, 1 << 6));
-        System.out.println(EMPTY);
         System.out.println(str);
-        System.out.println(EMPTY);
+    }
+
+    public static void print(String str) {
+        System.out.print(str);
     }
 }

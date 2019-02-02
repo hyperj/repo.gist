@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.io.UnsupportedEncodingException;
 
-import static net.hyperj.gist.common.dict.StringDict.CHARSET_UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
@@ -30,7 +30,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = (ByteBuf) msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
-        String body = new String(req, CHARSET_UTF8);
+        String body = new String(req, UTF_8);
         System.out.println("Server Msg: " + body);
     }
 

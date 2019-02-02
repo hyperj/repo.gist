@@ -11,6 +11,8 @@
 
     <artifactId>common</artifactId>
 
+    <properties/>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>

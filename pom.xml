@@ -18,6 +18,8 @@
         <module>datasketches</module>
         <module>netty</module>
         <module>python</module>
+        <module>orc</module>
+        <module>hadoop</module>
     </modules>
 
     <properties>
@@ -33,6 +35,10 @@
         <scala.version>2.11</scala.version>
         <spark.version>2.4.0</spark.version>
         <calcite.version>1.17.0</calcite.version>
+        <sketches.version>0.12.0</sketches.version>
+        <hadoop.version>3.2.0</hadoop.version>
+        <hive.version>2.7.0</hive.version>
+        <orc.version>1.5.4</orc.version>
         <sketches.version>0.12.0</sketches.version>
         <junit.version>4.12</junit.version>
         <scalatest.version>3.0.5</scalatest.version>

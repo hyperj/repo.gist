@@ -8,7 +8,7 @@ import net.hyperj.gist.common.kit.JavaScriptKit;
 
 import java.io.UnsupportedEncodingException;
 
-import static net.hyperj.gist.common.dict.StringDict.CHARSET_UTF8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -16,7 +16,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf in = (ByteBuf) msg;
         byte[] req = new byte[in.readableBytes()];
         in.readBytes(req);
-        String body = new String(req, CHARSET_UTF8);
+        String body = new String(req, UTF_8);
         System.out.println("Client Msg: " + body);
         String calResult = null;
         try {

@@ -1,6 +1,6 @@
 package net.hyperj.gist.java.nio;
 
-import net.hyperj.gist.common.dict.StringDict;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -92,7 +92,7 @@ public class ClientHandle implements Runnable {
                     buffer.flip();
                     byte[] bytes = new byte[buffer.remaining()];
                     buffer.get(bytes);
-                    String result = new String(bytes, StringDict.CHARSET_UTF8);
+                    String result = new String(bytes, UTF_8);
                     System.out.println("Response Msg: " + result);
                 }
                 else if (readBytes < 0) {
