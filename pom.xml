@@ -20,6 +20,8 @@
         <module>python</module>
         <module>orc</module>
         <module>hadoop</module>
+        <module>elasticsearch</module>
+        <module>leetcode</module>
     </modules>
 
     <properties>

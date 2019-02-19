@@ -16,6 +16,6 @@ the smallest, fastest columnar storage for Hadoop workloads.
 
 ## Reference
 
-- [Apache ORC](https://orc.apache.org/)
-- [ORC Github](https://github.com/apache/orc)
-- [ORC Docs](https://orc.apache.org/docs/)
+- [Github](https://github.com/apache/orc)
+- [Site](https://orc.apache.org/)
+- [Docs](https://orc.apache.org/docs/)
