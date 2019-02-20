@@ -22,6 +22,7 @@
         <module>hadoop</module>
         <module>elasticsearch</module>
         <module>leetcode</module>
+        <module>roaringbitmap</module>
     </modules>
 
     <properties>
