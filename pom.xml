@@ -23,6 +23,7 @@
         <module>elasticsearch</module>
         <module>leetcode</module>
         <module>roaringbitmap</module>
+        <module>jmh</module>
     </modules>
 
     <properties>

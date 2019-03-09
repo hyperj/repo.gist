@@ -9,23 +9,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>roaringbitmap</artifactId>
+    <artifactId>jmh</artifactId>
 
     <properties>
-        <roaringbitmap.version>0.7.36</roaringbitmap.version>
+        <openjdk.jmh.version>1.21</openjdk.jmh.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.roaringbitmap</groupId>
-            <artifactId>RoaringBitmap</artifactId>
-            <version>${roaringbitmap.version}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>${openjdk.jmh.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>${openjdk.jmh.version}</version>
         </dependency>
     </dependencies>
+
 
 </project>
