@@ -24,6 +24,7 @@
         <module>leetcode</module>
         <module>roaringbitmap</module>
         <module>jmh</module>
+        <module>udf</module>
     </modules>
 
     <properties>
