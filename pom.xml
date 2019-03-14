@@ -25,6 +25,7 @@
         <module>roaringbitmap</module>
         <module>jmh</module>
         <module>udf</module>
+        <module>janino</module>
     </modules>
 
     <properties>
