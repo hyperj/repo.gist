@@ -1,0 +1,39 @@
+version: '2' 
+services: 
+ locator1:
+     image: snappydatainc/snappydata
+     working_dir: /opt/snappydata/
+     container_name: locator1
+     command: start locator
+     ports: 
+       - "1527:1527"
+       - '10334:10334'
+     networks:
+       - snappydata  
+ server1:
+     image: snappydatainc/snappydata
+     working_dir: /opt/snappydata/
+     container_name: server1
+     environment:
+       - "EXTERNAL_IP=${EXTERNAL_IP}"
+     command: bash -c "sleep 10 && start server -locators=locator1:10334 -client-port=1528 -J-Dgemfirexd.hostname-for-clients=${EXTERNAL_IP}"
+     ports:
+       - "1528:1528"
+     depends_on:
+       - "locator1"
+     networks:
+       - snappydata
+ snappy-lead1:
+     image: snappydatainc/snappydata
+     working_dir: /opt/snappydata/
+     container_name: snappy_lead1
+     command: bash -c "sleep 20 && start lead -locators=locator1:10334"
+     depends_on:
+       - "server1"
+     ports:
+       - "5050:5050"
+     networks:
+       - snappydata      
+networks:
+  snappydata:
+

@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+
+  neo4j_single:
+    image: neo4j
+    container_name: neo4j_single
+    environment:
+      - NEO4J_dbms_memory_heap_maxSize=12G
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - $HOME/neo4j/conf:/conf
+      - $HOME/neo4j/data:/data
+      - $HOME/neo4j/import:/import
+      - $HOME/neo4j/plugins:/plugins

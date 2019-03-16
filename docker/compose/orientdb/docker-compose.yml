@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  orientdb_single:
+    image: orientdb
+    command: server.sh -Xmx8g
+    container_name: orientdb_single
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=root
+    ports:
+      - 2424:2424
+      - 2480:2480

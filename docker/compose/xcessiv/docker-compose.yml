@@ -1,0 +1,17 @@
+version: '2' 
+services:
+  xcessiv_srv:
+    image: 'reiinakano/xcessiv'
+    restart: always
+    container_name: xcessiv_srv
+    depends_on:
+      - "redis"
+    ports:
+      - "1994:1994"
+    volumes:
+      - '/srv/xcessiv/XcessivProjects/:/XcessivProjects/'
+      - '/srv/xcessiv/conf/:/root/.xcessiv/'
+  redis_srv:
+    image: 'redis'
+    restart: always
+    container_name: redis_srv
