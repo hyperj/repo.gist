@@ -40,8 +40,13 @@ interface MinStack {
 
 class MinStack1 implements MinStack {
 
-    Stack<Integer> data = new Stack<>();
-    Stack<Integer> min = new Stack<>();
+    Stack<Integer> data;
+    Stack<Integer> min;
+
+    MinStack1() {
+        data = new Stack<>();
+        min = new Stack<>();
+    }
 
     @Override
     public void push(int num) {
@@ -75,8 +80,13 @@ class MinStack1 implements MinStack {
 
 class MinStack2 implements MinStack {
 
-    Stack<Integer> data = new Stack<>();
-    Stack<Integer> min = new Stack<>();
+    Stack<Integer> data;
+    Stack<Integer> min;
+
+    MinStack2() {
+        data = new Stack<>();
+        min = new Stack<>();
+    }
 
     @Override
     public void push(int num) {
