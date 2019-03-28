@@ -1,4 +1,4 @@
-package net.hyperj.gist.java.nio;
+package net.hyperj.gist.java.nio.socket;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -7,25 +7,27 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ClientHandle implements Runnable {
-    private String host;
-    private int port;
+import net.hyperj.gist.common.kit.JavaScriptKit;
+
+public class ServerHandle implements Runnable {
     private Selector selector;
-    private SocketChannel socketChannel;
+    private ServerSocketChannel serverChannel;
     private volatile boolean started;
 
-    public ClientHandle(String ip, int port) {
-        this.host = ip;
-        this.port = port;
+    public ServerHandle(int port) {
         try {
             selector = Selector.open();
-            socketChannel = SocketChannel.open();
-            socketChannel.configureBlocking(false);
+            serverChannel = ServerSocketChannel.open();
+            serverChannel.configureBlocking(false);
+            serverChannel.socket().bind(new InetSocketAddress(port), 1024);
+            serverChannel.register(selector, SelectionKey.OP_ACCEPT);
             started = true;
+            System.out.println("Server Port Bind: " + port);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -38,12 +40,6 @@ public class ClientHandle implements Runnable {
 
     @Override
     public void run() {
-        try {
-            doConnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
         while (started) {
             try {
                 selector.select(1000);
@@ -64,38 +60,44 @@ public class ClientHandle implements Runnable {
                         }
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+            } catch (Throwable t) {
+                t.printStackTrace();
             }
         }
-        if (selector != null) {
+        if (selector != null)
             try {
                 selector.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
     }
 
     private void handleInput(SelectionKey key) throws IOException {
         if (key.isValid()) {
-            SocketChannel sc = (SocketChannel) key.channel();
-            if (key.isConnectable()) {
-                if (sc.finishConnect()) ;
-                else System.exit(1);
+            if (key.isAcceptable()) {
+                ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
+                SocketChannel sc = ssc.accept();
+                sc.configureBlocking(false);
+                sc.register(selector, SelectionKey.OP_READ);
             }
             if (key.isReadable()) {
+                SocketChannel sc = (SocketChannel) key.channel();
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 int readBytes = sc.read(buffer);
                 if (readBytes > 0) {
                     buffer.flip();
                     byte[] bytes = new byte[buffer.remaining()];
                     buffer.get(bytes);
-                    String result = new String(bytes, UTF_8);
-                    System.out.println("Response Msg: " + result);
-                }
-                else if (readBytes < 0) {
+                    String expression = new String(bytes, UTF_8);
+                    System.out.println("Request Msg: " + expression);
+                    String result = null;
+                    try {
+                        result = JavaScriptKit.Instance.eval(expression).toString();
+                    } catch (Exception e) {
+                        result = "Error: " + e.getMessage();
+                    }
+                    doWrite(sc, result);
+                } else if (readBytes < 0) {
                     key.cancel();
                     sc.close();
                 }
@@ -103,17 +105,15 @@ public class ClientHandle implements Runnable {
         }
     }
 
-    private void doWrite(SocketChannel channel, String request) throws IOException {
-        ServerHandle.write(channel, request);
+    private void doWrite(SocketChannel channel, String response) throws IOException {
+        write(channel, response);
     }
 
-    private void doConnect() throws IOException {
-        if (socketChannel.connect(new InetSocketAddress(host, port))) ;
-        else socketChannel.register(selector, SelectionKey.OP_CONNECT);
-    }
-
-    public void sendMsg(String msg) throws Exception {
-        socketChannel.register(selector, SelectionKey.OP_READ);
-        doWrite(socketChannel, msg);
+    static void write(SocketChannel channel, String response) throws IOException {
+        byte[] bytes = response.getBytes();
+        ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
+        writeBuffer.put(bytes);
+        writeBuffer.flip();
+        channel.write(writeBuffer);
     }
 }

@@ -1,4 +1,4 @@
-package net.hyperj.gist.java.nio;
+package net.hyperj.gist.java.nio.socket;
 
 public class Client {
 
