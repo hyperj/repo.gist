@@ -140,7 +140,7 @@
         <repository>
             <id>aliyun-central</id>
             <name>Aliyun Central</name>
-            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+            <url>https://maven.aliyun.com/repository/central/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -151,7 +151,7 @@
         <repository>
             <id>aliyun-public</id>
             <name>Aliyun Public</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/repository/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

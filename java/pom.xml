@@ -11,12 +11,24 @@
 
     <artifactId>java</artifactId>
 
-    <properties/>
+    <properties>
+        <languagetool.version>4.5</languagetool.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>net.hyperj.gist</groupId>
             <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.languagetool</groupId>
+            <artifactId>languagetool-core</artifactId>
+            <version>${languagetool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.languagetool</groupId>
+            <artifactId>language-all</artifactId>
+            <version>${languagetool.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

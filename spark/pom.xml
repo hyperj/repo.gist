@@ -13,7 +13,7 @@
 
     <properties>
         <hadoop.version>2.7.7</hadoop.version>
-        <graphframes.version>0.6.0-spark2.3-s_2.11</graphframes.version>
+        <graphframes.version>0.7.0-spark2.3-s_2.11</graphframes.version>
         <histogrammar.version>1.0.4</histogrammar.version>
     </properties>
 
@@ -73,7 +73,7 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
