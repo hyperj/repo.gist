@@ -28,6 +28,7 @@
         <module>janino</module>
         <module>docker</module>
         <module>calcite</module>
+        <module>guava</module>
     </modules>
 
     <properties>
