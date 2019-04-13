@@ -29,6 +29,7 @@
         <module>docker</module>
         <module>calcite</module>
         <module>guava</module>
+        <module>antlr</module>
     </modules>
 
     <properties>
