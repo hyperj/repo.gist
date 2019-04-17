@@ -81,6 +81,14 @@ class SqlApp extends FunSuite {
     println(res.queryExecution.sparkPlan.prettyJson)
   }
 
+  test("explode empty check") {
+    import sqlContext._
+    // remove
+    sql("select 'test' as test,explode(array())").show()
+    // retention
+    sql("select 'test' as test,explode(array(''))").show()
+  }
+
 }
 
 case class Pair(key: String, value: String)
