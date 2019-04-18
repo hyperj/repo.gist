@@ -30,6 +30,7 @@
         <module>calcite</module>
         <module>guava</module>
         <module>antlr</module>
+        <module>metrics</module>
     </modules>
 
     <properties>
