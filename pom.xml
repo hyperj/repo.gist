@@ -31,6 +31,7 @@
         <module>guava</module>
         <module>antlr</module>
         <module>metrics</module>
+        <module>canal</module>
     </modules>
 
     <properties>
