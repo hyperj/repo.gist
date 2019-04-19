@@ -81,6 +81,22 @@ sh run.sh -e canal.auto.scan=false \
 java net.hyperj.gist.canal.SimpleCanalClientExample
 ```
 
+- 添加数据
+
+```mysql
+create database test;
+
+use test;
+
+create table `xdual` (
+    `id` int(11) not null auto_increment,
+    `x` timestamp not null default current_timestamp,
+    primary key (`id`)
+   ) engine=innodb default charset=utf8;
+
+insert into xdual(id,x) values(null,now());
+```
+
 ## Reference
 
 - [canal github](https://github.com/alibaba/canal)

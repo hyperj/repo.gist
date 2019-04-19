@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  canal-server:
+    image: canal/canal-server
+    environment:
+      - canal.auto.scan=false
+      - canal.destinations=test
+      - canal.instance.master.address=mysql_db:3306
+      - canal.instance.dbUsername=canal
+      - canal.instance.dbPassword=canal
+      - canal.instance.connectionCharset=UTF-8
+      - canal.instance.tsdb.enable=true
+      - canal.instance.gtidon=false
+    ports:
+      - "8000:8000"
+      - "2222:2222"
+      - "11111:11111"
+      - "11112:11112"
+    external_links:
+      - mysql_db_1:mysql_db
+    networks:
+      - mysql_default
+
+networks:
+  mysql_default:
