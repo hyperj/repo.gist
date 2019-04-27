@@ -60,6 +60,9 @@ object WindowJoin {
     // print the results with a single thread, rather than in parallel
     joined.print().setParallelism(1)
 
+    // get execution plan
+    println(env.getExecutionPlan)
+
     // execute program
     env.execute("Windowed Join Example")
   }
