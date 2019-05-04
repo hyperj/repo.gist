@@ -19,15 +19,15 @@ public class StreamClass {
         pretty("Sort");
         integers.stream().sorted().forEach(out::println);
         pretty("Top");
-        integers.stream().sorted().limit(3).forEach(out::println);
+        integers.stream().sorted((x, y) -> x > y ? -1 : 1).limit(3).forEach(out::println);
         pretty("Min/Max");
         println(integers.stream().min((x, y) -> x > y ? 1 : -1).get());
         println(integers.stream().max((x, y) -> x > y ? 1 : -1).get());
         pretty("Mean");
-        println(integers.stream().reduce((x, y) -> x + y).get() / size);
+        println(integers.stream().reduce((x, y) -> x + y).get() * 1.0 / size);
         pretty("Median");
         int r = size % 2 == 0 ? 2 : 1;
-        println(integers.stream().sorted().skip((size - 1) / 2).limit(r).reduce((x, y) -> x + y).get() * 1.0 / r);
+        integers.stream().sorted().skip((size - 1) / 2).limit(r).forEach(out::println);
     }
 
     public static void println(Object o) {
