@@ -32,10 +32,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 grammar Calculator;
 
-equation
-   : expression relop expression
-   ;
-
 expression
    : multiplyingExpression ((PLUS | MINUS) multiplyingExpression)*
    ;
@@ -57,7 +53,6 @@ signedAtom
 
 atom
    : scientific
-   | variable
    | constant
    | LPAREN expression RPAREN
    ;
@@ -70,10 +65,6 @@ constant
    : PI
    | EULER
    | I
-   ;
-
-variable
-   : VARIABLE
    ;
 
 func
@@ -90,12 +81,6 @@ funcname
    | LOG
    | LN
    | SQRT
-   ;
-
-relop
-   : EQ
-   | GT
-   | LT
    ;
 
 
@@ -174,21 +159,6 @@ DIV
    ;
 
 
-GT
-   : '>'
-   ;
-
-
-LT
-   : '<'
-   ;
-
-
-EQ
-   : '='
-   ;
-
-
 COMMA
    : ','
    ;
@@ -218,20 +188,6 @@ I
    : 'i'
    ;
 
-
-VARIABLE
-   : VALID_ID_START VALID_ID_CHAR*
-   ;
-
-
-fragment VALID_ID_START
-   : ('a' .. 'z') | ('A' .. 'Z') | '_'
-   ;
-
-
-fragment VALID_ID_CHAR
-   : VALID_ID_START | ('0' .. '9')
-   ;
 
 
 SCIENTIFIC_NUMBER

@@ -1,63 +1,94 @@
 package net.hyperj.gist.antlr.calculator;
 
-public class CalculatorTestVisitor extends CalculatorBaseVisitor<Object> {
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
+public class CalculatorTestVisitor extends CalculatorBaseVisitor<Double> {
+
     @Override
-    public Object visitEquation(CalculatorParser.EquationContext ctx) {
-        return super.visitEquation(ctx);
+    public Double visitExpression(CalculatorParser.ExpressionContext ctx) {
+        Double result = visit(ctx.multiplyingExpression(0));
+        if (ctx.getChildCount() > 1) {
+            for (int i = 1; i < ctx.getChildCount() - 1; i += 2) {
+                ParseTree child = ctx.getChild(i);
+                if (child instanceof TerminalNode) {
+                    TerminalNode tnode = (TerminalNode) child;
+                    Token symbol = tnode.getSymbol();
+                    if (symbol.getType() == CalculatorParser.PLUS) {
+                        result += visit(ctx.multiplyingExpression((i + 1) / 2));
+                    } else if (symbol.getType() == CalculatorParser.MINUS) {
+                        result -= visit(ctx.multiplyingExpression((i + 1) / 2));
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     @Override
-    public Object visitExpression(CalculatorParser.ExpressionContext ctx) {
-        return super.visitExpression(ctx);
-    }
-
-    @Override
-    public Object visitMultiplyingExpression(CalculatorParser.MultiplyingExpressionContext ctx) {
+    public Double visitMultiplyingExpression(CalculatorParser.MultiplyingExpressionContext ctx) {
+        if (ctx.DIV().size() > 0) {
+            return visit(ctx.powExpression(0)) / visit(ctx.powExpression(1));
+        }
+        if (ctx.TIMES().size() > 0) {
+            return visit(ctx.powExpression(0)) * visit(ctx.powExpression(1));
+        }
         return super.visitMultiplyingExpression(ctx);
     }
 
     @Override
-    public Object visitPowExpression(CalculatorParser.PowExpressionContext ctx) {
+    public Double visitPowExpression(CalculatorParser.PowExpressionContext ctx) {
+        if (ctx.POW().size() > 0) {
+            return Math.pow(visit(ctx.signedAtom(0)), visit(ctx.signedAtom(1)));
+        }
         return super.visitPowExpression(ctx);
     }
 
     @Override
-    public Object visitSignedAtom(CalculatorParser.SignedAtomContext ctx) {
+    public Double visitSignedAtom(CalculatorParser.SignedAtomContext ctx) {
+        if (ctx.PLUS() != null)
+            System.out.println("PLUS");
+        if (ctx.MINUS() != null)
+            System.out.println("MINUS");
+        if (ctx.func() != null)
+            System.out.println("func");
+        if (ctx.atom() != null)
+            return visit(ctx.atom());
         return super.visitSignedAtom(ctx);
     }
 
     @Override
-    public Object visitAtom(CalculatorParser.AtomContext ctx) {
+    public Double visitAtom(CalculatorParser.AtomContext ctx) {
+        if (ctx.scientific() != null)
+            return visit(ctx.scientific());
+        if (ctx.constant() != null)
+            System.out.println("constant");
+        if (ctx.LPAREN() != null && ctx.RPAREN() != null)
+            System.out.println("LPAREN & RPAREN");
         return super.visitAtom(ctx);
     }
 
     @Override
-    public Object visitScientific(CalculatorParser.ScientificContext ctx) {
-        return super.visitScientific(ctx);
+    public Double visitScientific(CalculatorParser.ScientificContext ctx) {
+        return Double.valueOf(ctx.SCIENTIFIC_NUMBER().getSymbol().getText());
     }
 
     @Override
-    public Object visitConstant(CalculatorParser.ConstantContext ctx) {
-        return super.visitConstant(ctx);
+    public Double visitConstant(CalculatorParser.ConstantContext ctx) {
+        if (ctx.PI() != null)
+            return 3.14;
+        return -1.0;
     }
 
     @Override
-    public Object visitVariable(CalculatorParser.VariableContext ctx) {
-        return super.visitVariable(ctx);
-    }
-
-    @Override
-    public Object visitFunc(CalculatorParser.FuncContext ctx) {
+    public Double visitFunc(CalculatorParser.FuncContext ctx) {
         return super.visitFunc(ctx);
     }
 
     @Override
-    public Object visitFuncname(CalculatorParser.FuncnameContext ctx) {
+    public Double visitFuncname(CalculatorParser.FuncnameContext ctx) {
         return super.visitFuncname(ctx);
     }
 
-    @Override
-    public Object visitRelop(CalculatorParser.RelopContext ctx) {
-        return super.visitRelop(ctx);
-    }
 }

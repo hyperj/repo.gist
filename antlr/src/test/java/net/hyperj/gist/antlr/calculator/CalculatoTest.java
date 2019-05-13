@@ -7,13 +7,13 @@ import org.antlr.v4.runtime.CommonTokenStream;
 public class CalculatoTest {
 
     public static void main(String[] args) {
-        String expression = "(1 + 1) * 1";
+        String expression = "1+3-2";
         CalculatorLexer lexer = new CalculatorLexer(CharStreams.fromString(expression));
         CommonTokenStream token = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(token);
-        System.out.printf(parser.expression().getText());
         CalculatorTestVisitor visitor = new CalculatorTestVisitor();
-        visitor.visit(parser.expression());
+        Double result = visitor.visit(parser.expression());
+        System.out.println(result);
     }
 }
 
