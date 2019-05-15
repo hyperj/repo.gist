@@ -28,21 +28,41 @@ public class CalculatorTestVisitor extends CalculatorBaseVisitor<Double> {
 
     @Override
     public Double visitMultiplyingExpression(CalculatorParser.MultiplyingExpressionContext ctx) {
-        if (ctx.DIV().size() > 0) {
-            return visit(ctx.powExpression(0)) / visit(ctx.powExpression(1));
+        Double result = visit(ctx.powExpression(0));
+        if (ctx.getChildCount() > 1) {
+            for (int i = 1; i < ctx.getChildCount() - 1; i += 2) {
+                ParseTree child = ctx.getChild(i);
+                if (child instanceof TerminalNode) {
+                    TerminalNode tnode = (TerminalNode) child;
+                    Token symbol = tnode.getSymbol();
+                    // TODO div 0
+                    if (symbol.getType() == CalculatorParser.DIV) {
+                        result /= visit(ctx.powExpression((i + 1) / 2));
+                    } else if (symbol.getType() == CalculatorParser.TIMES) {
+                        result *= visit(ctx.powExpression((i + 1) / 2));
+                    }
+                }
+            }
         }
-        if (ctx.TIMES().size() > 0) {
-            return visit(ctx.powExpression(0)) * visit(ctx.powExpression(1));
-        }
-        return super.visitMultiplyingExpression(ctx);
+        return result;
     }
 
     @Override
     public Double visitPowExpression(CalculatorParser.PowExpressionContext ctx) {
-        if (ctx.POW().size() > 0) {
-            return Math.pow(visit(ctx.signedAtom(0)), visit(ctx.signedAtom(1)));
+        Double result = visit(ctx.signedAtom(0));
+        if (ctx.getChildCount() > 1) {
+            for (int i = 1; i < ctx.getChildCount() - 1; i += 2) {
+                ParseTree child = ctx.getChild(i);
+                if (child instanceof TerminalNode) {
+                    TerminalNode tnode = (TerminalNode) child;
+                    Token symbol = tnode.getSymbol();
+                    if (symbol.getType() == CalculatorParser.POW) {
+                        result = Math.pow(result, visit(ctx.signedAtom((i + 1) / 2)));
+                    }
+                }
+            }
         }
-        return super.visitPowExpression(ctx);
+        return result;
     }
 
     @Override
@@ -63,9 +83,9 @@ public class CalculatorTestVisitor extends CalculatorBaseVisitor<Double> {
         if (ctx.scientific() != null)
             return visit(ctx.scientific());
         if (ctx.constant() != null)
-            System.out.println("constant");
+            return visit(ctx.constant());
         if (ctx.LPAREN() != null && ctx.RPAREN() != null)
-            System.out.println("LPAREN & RPAREN");
+            return visit(ctx.expression());
         return super.visitAtom(ctx);
     }
 

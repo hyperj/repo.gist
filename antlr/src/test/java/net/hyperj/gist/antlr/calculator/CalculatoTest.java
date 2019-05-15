@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 public class CalculatoTest {
 
     public static void main(String[] args) {
-        String expression = "1+3-2";
+        String expression = "1+3+5-2*2/0.1";
         CalculatorLexer lexer = new CalculatorLexer(CharStreams.fromString(expression));
         CommonTokenStream token = new CommonTokenStream(lexer);
         CalculatorParser parser = new CalculatorParser(token);
