@@ -32,6 +32,7 @@
         <module>antlr</module>
         <module>metrics</module>
         <module>canal</module>
+        <module>curator</module>
     </modules>
 
     <properties>
