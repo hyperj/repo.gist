@@ -2,7 +2,7 @@ package net.hyperj.gist.spark.sql
 
 import com.yahoo.sketches.frequencies.{ErrorType, ItemsSketch}
 import net.hyperj.gist.spark.utils.RandomUtils._
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SaveMode, SparkSession}
 import org.scalatest._
 
 class SqlApp extends FunSuite {
@@ -87,6 +87,21 @@ class SqlApp extends FunSuite {
     sql("select 'test' as test,explode(array())").show()
     // retention
     sql("select 'test' as test,explode(array(''))").show()
+  }
+
+  test("partition filter") {
+    import sqlContext._
+    import sqlContext.implicits._
+    val pair = Seq(Seq(Pair("key11", "value11"), Pair("key12", "value12")),
+      Seq(Pair("key21", "value21"), Pair("key22", "value22")))
+      .toDF("pair")
+    import org.apache.spark.sql.functions._
+    pair
+      .withColumn("temp", explode($"pair"))
+      .withColumn("key", $"temp.key")
+      .withColumn("value", $"temp.value")
+      .select("key", "value").write.partitionBy("key").mode(SaveMode.Overwrite).format("orc").saveAsTable("test")
+    println(sql("select * from test where key = '1' and (value>0 or value<2)").queryExecution.sparkPlan.treeString)
   }
 
 }
