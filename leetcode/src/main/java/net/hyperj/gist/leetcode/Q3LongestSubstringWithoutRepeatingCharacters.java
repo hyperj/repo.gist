@@ -3,7 +3,7 @@ package net.hyperj.gist.leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LengthOfLongestSubstring {
+public class Q3LongestSubstringWithoutRepeatingCharacters {
     public int lengthOfLongestSubstring(String s) {
         if (s != null && s.length() > 0) {
             return maxLength(s);
@@ -26,6 +26,6 @@ public class LengthOfLongestSubstring {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LengthOfLongestSubstring().lengthOfLongestSubstring("dvdf"));
+        System.out.println(new Q3LongestSubstringWithoutRepeatingCharacters().lengthOfLongestSubstring("dvdf"));
     }
 }

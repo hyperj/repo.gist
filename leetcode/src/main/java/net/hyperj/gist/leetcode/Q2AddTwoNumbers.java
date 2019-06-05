@@ -1,6 +1,6 @@
 package net.hyperj.gist.leetcode;
 
-public class AddTwoNumbers {
+public class Q2AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode root = new ListNode(0);
         ListNode curr = root;
@@ -19,7 +19,7 @@ public class AddTwoNumbers {
     public static void main(String[] args) {
         ListNode l1 = initListNode(new int[]{1, 3, 5, 7, 9});
         ListNode l2 = initListNode(new int[]{2, 4, 6, 8});
-        ListNode res = new AddTwoNumbers().addTwoNumbers(l1, l2);
+        ListNode res = new Q2AddTwoNumbers().addTwoNumbers(l1, l2);
         while (res != null) {
             System.out.print(res.val + ",");
             res = res.next;
