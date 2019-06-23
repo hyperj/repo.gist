@@ -17,34 +17,11 @@ public class Q2AddTwoNumbers {
     }
 
     public static void main(String[] args) {
-        ListNode l1 = initListNode(new int[]{1, 3, 5, 7, 9});
-        ListNode l2 = initListNode(new int[]{2, 4, 6, 8});
-        ListNode res = new Q2AddTwoNumbers().addTwoNumbers(l1, l2);
-        while (res != null) {
-            System.out.print(res.val + ",");
-            res = res.next;
-        }
+        ListNode l1 = ListNode.init(new int[]{1, 3, 5, 7, 9});
+        ListNode l2 = ListNode.init(new int[]{2, 4, 6, 8});
+        ListNode.print(new Q2AddTwoNumbers().addTwoNumbers(l1, l2));
+
     }
 
-    public static ListNode initListNode(int[] arrs) {
-        if (arrs != null && arrs.length > 0) {
-            ListNode list = new ListNode(0);
-            ListNode temp = list;
-            for (int i : arrs) {
-                temp.next = new ListNode(i);
-                temp = temp.next;
-            }
-            return list.next;
-        }
-        return null;
-    }
-}
 
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
 }
