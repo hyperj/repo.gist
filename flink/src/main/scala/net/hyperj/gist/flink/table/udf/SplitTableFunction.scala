@@ -1,10 +1,8 @@
 package net.hyperj.gist.flink.table.udf
 
 import org.apache.flink.api.scala._
-import org.apache.flink.table.api.Table
 import org.apache.flink.table.api.scala._
 import org.apache.flink.table.functions.TableFunction
-import org.apache.flink.types.Row
 
 object SplitTableFunction {
 
@@ -12,7 +10,7 @@ object SplitTableFunction {
     import org.apache.flink.table.api.TableEnvironment
     val env = ExecutionEnvironment.getExecutionEnvironment
     val tEnv = TableEnvironment.getTableEnvironment(env)
-    import net.hyperj.gist.flink.table.udf.TableHelper._
+    import net.hyperj.gist.flink.helper.TableHelper._
     val split = new Split(",")
     val lines = env.fromElements(("1,3"), ("2,4")).toTable(tEnv, 'line)
     lines.join(split('line) as ('word)).select('line, 'word).show
@@ -30,12 +28,4 @@ class Split(separator: String) extends TableFunction[String] {
   }
 }
 
-object TableHelper {
 
-  implicit class printTable(t: Table) {
-    def show: Unit = {
-      t.toDataSet[Row].print()
-    }
-  }
-
-}

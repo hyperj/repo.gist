@@ -33,6 +33,7 @@
         <module>metrics</module>
         <module>canal</module>
         <module>curator</module>
+        <module>btrace</module>
     </modules>
 
     <properties>
