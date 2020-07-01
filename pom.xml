@@ -44,7 +44,7 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <log4j.version>2.11.1</log4j.version>
+        <log4j.version>2.13.3</log4j.version>
         <scala-library.version>2.11.12</scala-library.version>
         <scala.version>2.11</scala.version>
         <spark.version>2.4.0</spark.version>
