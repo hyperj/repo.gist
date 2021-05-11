@@ -53,7 +53,7 @@
         <hadoop.version>3.2.1</hadoop.version>
         <hive.version>2.7.0</hive.version>
         <orc.version>1.5.4</orc.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <scalatest.version>3.0.5</scalatest.version>
     </properties>
 
