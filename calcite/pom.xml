@@ -12,7 +12,7 @@
     <artifactId>calcite</artifactId>
 
     <properties>
-        <calcite.version>1.19.0</calcite.version>
+        <calcite.version>1.26.0</calcite.version>
     </properties>
 
     <dependencies>
