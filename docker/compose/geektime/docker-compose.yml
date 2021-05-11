@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+
+  geektime:
+    container_name: geektime
+    image: geektime
+    restart: always
+    stdin_open: true
+    tty: true
+    privileged: true
+    entrypoint: ["sh"]
+    volumes:
+      - "./:/output"
+    networks:
+      - geektimenet
+
+networks:
+  geektimenet:

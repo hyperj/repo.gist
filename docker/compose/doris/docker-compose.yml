@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+
+  clickhouse:
+    image: apachedoris/doris-dev:build-env
+    ports:
+      - "8123:8123"
+    networks:
+      - drnet
+
+networks:
+  drnet:

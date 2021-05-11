@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+
+  kylin:
+    image: kyligence/superset-kylin
+    ports:
+      - "8099:8099"
